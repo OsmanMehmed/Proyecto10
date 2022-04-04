@@ -1,0 +1,30 @@
+<div class="product-card" *ngIf="!!product">
+  <img [src]="product.image">
+  <span>{{ product.name }}</span>
+  <small>{{ !!product?.description ? product?.description : "1 ud." }}</small>
+  <span><strong>{{ product.price }}</strong>/ud.</span>
+  <ng-container *ngIf="units <= 0; else inShoppingCart">
+      <button mat-raised-button color="primary" (click)="addToShoppingCart()">
+          Añadir al carro
+      </button>
+  </ng-container>
+  <ng-template #inShoppingCart>
+      <hr>
+      <div class="product-card-footer">
+          <div class="product-card-footer-units">
+              <small>En carro</small>
+              <span><strong>{{ this.units }} ud.</strong></span>
+          </div>
+          <div>
+              <button mat-mini-fab color="warn" (click)="deleteFromShoppingCart()">
+                  <ng-container *ngIf="units > 1; else noUnits">
+                  </ng-container>
+                  <ng-template #noUnits>
+                  </ng-template>
+              </button>
+              <button mat-mini-fab color="accent" (click)="addToShoppingCart()">
+              </button>
+          </div>
+      </div>
+  </ng-template>
+</div>
